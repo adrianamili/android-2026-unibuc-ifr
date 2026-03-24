@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Password
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
@@ -36,25 +37,35 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import com.unibucfmiifr2026.R
+import com.unibucfmiifr2026.utils.isMatchingPassword
 import com.unibucfmiifr2026.utils.isValidEmail
+import com.unibucfmiifr2026.utils.isValidName
 import com.unibucfmiifr2026.utils.isValidPassword
 
 
 @Composable
-fun LoginScreen(
+fun RegisterScreen(
     modifier: Modifier = Modifier,
-    onLoginClick: () -> Unit = {},
-    onRegisterClick: () -> Unit = {}
+    onRegisterClick: () -> Unit = {},
+    onLoginClick: () -> Unit = {}
 ) {
     val context = LocalContext.current
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
+    var confirmPassword by remember { mutableStateOf("") }
+    var confirmPasswordVisible by remember { mutableStateOf(false) }
+    var fullName by remember { mutableStateOf("") }
     var emailError by remember { mutableStateOf<String?>(null) }
     var passwordError by remember { mutableStateOf<String?>(null) }
+    var nameError by remember { mutableStateOf<String?>(null) }
+    var matchingPasswordError by remember { mutableStateOf<String?>(null) }
+
 
     val invalidEmailError = stringResource(R.string.email_error)
     val invalidPasswordError = stringResource(R.string.password_error)
+    val invalidNameError = stringResource(R.string.name_error)
+    val invalidMatchingPasswordError = stringResource(R.string.matching_password_error)
 
 
 
@@ -66,11 +77,43 @@ fun LoginScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = stringResource(R.string.welcome),
+            text = stringResource(R.string.create_account),
             style = MaterialTheme.typography.headlineLarge,
             color = MaterialTheme.colorScheme.primary
         )
         Spacer(modifier = Modifier.height(32.dp))
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = fullName,
+            onValueChange = { newValue ->
+                fullName = newValue
+                nameError = null
+            },
+            label = {
+                Text(
+                    stringResource(R.string.full_name)
+                )
+            },
+            leadingIcon = {
+                Icon(Icons.Default.Person, "name")
+            },
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Text,
+                imeAction = ImeAction.Next
+
+            ),
+            isError = nameError != null,
+            supportingText = nameError?.let {
+                {
+                    Text(
+                        text = it
+                    )
+                }
+            }
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = email,
@@ -99,6 +142,7 @@ fun LoginScreen(
                     )
                 }
             }
+
 
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -145,6 +189,51 @@ fun LoginScreen(
                 }
             }
         )
+        Spacer(modifier = Modifier.height(16.dp))
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = confirmPassword,
+            onValueChange = { newValue ->
+                confirmPassword = newValue
+                matchingPasswordError = null
+            },
+            label = {
+                Text(
+                    stringResource(R.string.confirm_password)
+                )
+            },
+            leadingIcon = {
+                Icon(Icons.Default.Password, "confirm password")
+            },
+            trailingIcon = {
+                IconButton(
+                    onClick = {
+                        confirmPasswordVisible = !confirmPasswordVisible
+                    }
+                ) {
+                    Icon(
+                        imageVector = if (confirmPasswordVisible) Icons.Default.VisibilityOff else Icons.Default.Visibility,
+                        contentDescription = if (confirmPasswordVisible) "Hide  confirmed password" else "Show confirmed password"
+
+                    )
+                }
+            },
+            visualTransformation = if (confirmPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Password,
+                imeAction = ImeAction.Done
+            ),
+                    isError = matchingPasswordError != null,
+            supportingText = matchingPasswordError?.let {
+                {
+                    Text(
+                        text = it
+                    )
+                }
+            }
+        )
+
         Spacer(modifier = Modifier.height(32.dp))
         Button(
             modifier = Modifier.fillMaxWidth(),
@@ -158,22 +247,30 @@ fun LoginScreen(
                     passwordError = invalidPasswordError
                     valid = false
                 }
+                if (!confirmPassword.isMatchingPassword(password)) {
+                    matchingPasswordError = invalidMatchingPasswordError
+                    valid = false
+                }
+                if (!fullName.isValidName()) {
+                    nameError = invalidNameError
+                    valid = false
+                }
                 if (valid) {
-                    onLoginClick()
+                    onRegisterClick()
                 }
             }
 
         ) {
             Text(
-                stringResource(R.string.login)
+                stringResource(R.string.register)
             )
         }
         Spacer(modifier = Modifier.height(16.dp))
         TextButton(
-            onClick = onRegisterClick
+            onClick = onLoginClick
         ) {
             Text(
-                stringResource(R.string.go_to_register)
+                stringResource(R.string.go_to_login)
 
             )
         }
@@ -182,6 +279,6 @@ fun LoginScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun LoginScreenPreview() {
-    LoginScreen()
+fun RegisterScreenPreview() {
+    RegisterScreen()
 }

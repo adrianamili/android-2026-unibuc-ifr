@@ -5,4 +5,14 @@
     <string name="email">Email</string>
     <string name="password">Parola</string>
     <string name="welcome">Bun venit!</string>
+    <string name="register">Inregistrare</string>
+    <string name="create_account">Creeaza cont</string>
+    <string name="full_name">Nume si prenume</string>
+    <string name="confirm_password">Confirma parola</string>
+    <string name="go_to_login">Ai deja un cont? Autentificare</string>
+    <string name="go_to_register">Nu ai cont? Inregistrare</string>
+    <string name="email_error" >Introdu o adresa de email valida!</string>
+    <string name="password_error" >Introdu o parola valida!</string>
+    <string name="name_error" >Introdu un nume valid!</string>
+    <string name="matching_password_error" >Parolele nu se potrivesc!</string>
 </resources>

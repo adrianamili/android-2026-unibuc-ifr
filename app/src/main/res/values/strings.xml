@@ -5,4 +5,17 @@
     <string name="password">Password</string>
     <string name="welcome">Welcome</string>
     <string name="hello_world">Hello World!</string>
+    <string name="register">Register</string>
+    <string name="create_account">Create account</string>
+    <string name="full_name">Full name</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="go_to_login">Already have an account? Login</string>
+    <string name="go_to_register">Don\'t have an account? Register</string>
+    <string name="email_error" >Enter a valid email!</string>
+    <string name="password_error" >Enter a valid password!</string>
+    <string name="name_error" >Enter a valid name!</string>
+    <string name="matching_password_error" >Passwords don\'t match!</string>
+
+
+
 </resources>
