@@ -10,4 +10,6 @@ fun String.isValidPassword() = length >= 6
 
 fun String.isValidName() = length >= 4
 
+fun String.isValidAddress() = length >= 4
+
 fun String.isMatchingPassword(password: String) = this.isNotBlank() && this == password

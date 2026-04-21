@@ -7,11 +7,16 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "addresses")
 data class AddressEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Int=0,
+    @ColumnInfo(name = ARG_ID)
+    val id: Long=0,
     @ColumnInfo(name = "street")
     val street: String,
     @ColumnInfo(name = "city")
     val city: String,
     @ColumnInfo(name = "country")
     val country: String,
-)
+){
+    companion object{
+        const val ARG_ID = "id"
+    }
+}

@@ -18,9 +18,15 @@
     <string name="logout">Logout</string>
     <string name="first_name">First name</string>
     <string name="invalid_first_name">Invalid first name</string>
+    <string name="invalid_street" translatable="false">Invalid street</string>
+    <string name="invalid_city" translatable="false">Invalid city</string>
     <string name="last_name">Last name</string>
     <string name="invalid_last_name">Invalid last name</string>
     <string name="add_user_button">Add user</string>
+    <string name="add_address_button" translatable="false">Add address</string>
+    <string name="street" translatable="false">Street</string>
+    <string name="city" translatable="false">City</string>
+    <string name="no_address" translatable="false">No address yet</string>
 
 
 </resources>

@@ -13,7 +13,7 @@ import com.unibucfmiifr2026.data.dao.UserDAO
 import com.unibucfmiifr2026.data.entities.AddressEntity
 import com.unibucfmiifr2026.data.entities.UserEntity
 
-@Database(entities = [UserEntity::class, AddressEntity::class], version = 4)
+@Database(entities = [UserEntity::class, AddressEntity::class], version = 5)
 abstract class AppDatabase: RoomDatabase() {
     companion object {
         @Volatile
