@@ -92,4 +92,9 @@ dependencies {
 	implementation(platform(libs.firebase.bom))
 	implementation(libs.firebase.analytics)
 	implementation(libs.firebase.auth)
+	implementation(libs.retrofit)
+	implementation(libs.retrofit.converter.gson)
+	implementation(libs.okhttp.logging.interceptor)
+	implementation(libs.kotlinx.coroutines.android)
+	implementation(libs.coil.compose)
 }
