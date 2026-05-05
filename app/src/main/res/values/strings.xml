@@ -27,6 +27,8 @@
     <string name="street" translatable="false">Street</string>
     <string name="city" translatable="false">City</string>
     <string name="no_address" translatable="false">No address yet</string>
+    <string name="go_to_users" transalatable="false">Go to users</string>
+
 
 
 </resources>
