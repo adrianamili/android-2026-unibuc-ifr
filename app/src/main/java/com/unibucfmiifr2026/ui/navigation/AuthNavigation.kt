@@ -13,6 +13,7 @@ import com.unibucfmiifr2026.ui.screens.AddressDetailScreen
 import com.unibucfmiifr2026.ui.screens.HomeScreen
 import com.unibucfmiifr2026.ui.screens.LoginScreen
 import com.unibucfmiifr2026.ui.screens.RegisterScreen
+import com.unibucfmiifr2026.ui.screens.UsersScreen
 import com.unibucfmiifr2026.viewmodels.AuthViewModel
 
 @Composable
@@ -54,10 +55,16 @@ fun AuthNavigation(authViewModel: AuthViewModel = viewModel()) {
 
         }
         composable("home") {
-            HomeScreen(logout = authViewModel::logout)
-            { addressId ->
-                navController.navigate("addresses/${addressId}")
-            }
+            HomeScreen(
+                logout = authViewModel::logout,
+                onAddressClick = { addressId ->
+                    navController.navigate("addresses/${addressId}")
+                },
+                goToUsers = {
+                    navController.navigate("users")
+                }
+            )
+
         }
         composable(
             "addresses/{addressId}",
@@ -67,6 +74,11 @@ fun AuthNavigation(authViewModel: AuthViewModel = viewModel()) {
         ) {
             val addressId = it.arguments?.getLong("addressId") ?: return@composable
             AddressDetailScreen(addressId = addressId)
+        }
+        composable (
+            "users"
+        ){
+            UsersScreen()
         }
     }
 }

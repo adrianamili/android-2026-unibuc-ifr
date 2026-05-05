@@ -46,9 +46,15 @@ import com.unibucfmiifr2026.viewmodels.HomeViewModel
 import kotlin.jvm.java
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel = viewModel(), logout: () -> Unit = {}, onAddressClick: (addressId: Long) -> Unit = {}) {
+fun HomeScreen(
+    viewModel: HomeViewModel = viewModel(),
+    logout: () -> Unit = {},
+    onAddressClick: (addressId: Long) -> Unit = {},
+    goToUsers: () -> Unit = {}
+) {
     val context = LocalContext.current
     val addresses = viewModel.addresses.collectAsState(initial = emptyList())
+
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -58,6 +64,14 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel(), logout: () -> Unit = {}, 
     ) {
         item {
             HomeHeader(viewModel)
+        }
+        item{
+            Button(
+                onClick = goToUsers,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Text(stringResource(R.string.go_to_users))
+            }
         }
         item {
             Button(
@@ -73,7 +87,7 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel(), logout: () -> Unit = {}, 
                 Text(stringResource(R.string.logout))
             }
         }
-        if(addresses.value.isEmpty()) {
+        if (addresses.value.isEmpty()) {
             item {
                 Text(
                     text = stringResource(R.string.no_address),
@@ -81,9 +95,8 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel(), logout: () -> Unit = {}, 
                     color = MaterialTheme.colorScheme.primary
                 )
             }
-        }
-        else{
-            items(addresses.value){ address ->
+        } else {
+            items(addresses.value) { address ->
                 ListItem(address, onClick = onAddressClick)
             }
         }
@@ -188,11 +201,13 @@ fun HomeHeader(viewModel: HomeViewModel) {
         ) {
             Text(stringResource(R.string.add_address_button))
         }
+
+
     }
 }
 
 @Composable
-fun ListItem(address: AddressEntity, onClick: (addressId: Long) -> Unit){
+fun ListItem(address: AddressEntity, onClick: (addressId: Long) -> Unit) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         onClick = { onClick(address.id) }
@@ -219,7 +234,6 @@ fun ListItem(address: AddressEntity, onClick: (addressId: Long) -> Unit){
         }
     }
 }
-
 
 
 @Preview(showBackground = true)
