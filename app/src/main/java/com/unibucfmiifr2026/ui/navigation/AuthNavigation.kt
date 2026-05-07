@@ -20,8 +20,11 @@ import com.unibucfmiifr2026.viewmodels.AuthViewModel
 fun AuthNavigation(authViewModel: AuthViewModel = viewModel()) {
     val navController = rememberNavController()
     val authState by authViewModel.authState.collectAsState()
+    val isApiLoggedIn by authViewModel.isApiLoggedIn.collectAsState()
     val navigateToHome = { navController.navigate("home") }
-    val startDestination = if (authViewModel.isLoggedIn) "home" else "login"
+    val startDestination = if (authViewModel.isLoggedIn
+        || isApiLoggedIn != null
+    ) "home" else "login"
 
     NavHost(
         navController,
@@ -33,8 +36,8 @@ fun AuthNavigation(authViewModel: AuthViewModel = viewModel()) {
                     navController.navigate("register")
                 },
                 onLoginClick = { email, password ->
-                    authViewModel.login(email, password, onSuccess = navigateToHome)
-//                    navController.navigate("home")
+                    authViewModel.apiLogin(email, password, onSuccess = navigateToHome)
+
                 },
                 isLoading = authState.isLoading,
                 authError = authState.error
@@ -47,7 +50,7 @@ fun AuthNavigation(authViewModel: AuthViewModel = viewModel()) {
                 },
                 onRegisterClick = { email, password ->
                     authViewModel.register(email, password, onSuccess = navigateToHome)
-//                    navController.navigate("home")
+
                 },
                 isLoading = authState.isLoading,
                 authError = authState.error
@@ -75,9 +78,9 @@ fun AuthNavigation(authViewModel: AuthViewModel = viewModel()) {
             val addressId = it.arguments?.getLong("addressId") ?: return@composable
             AddressDetailScreen(addressId = addressId)
         }
-        composable (
+        composable(
             "users"
-        ){
+        ) {
             UsersScreen()
         }
     }

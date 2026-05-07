@@ -1,5 +1,6 @@
 package com.unibucfmiifr2026.network
 
+import com.unibucfmiifr2026.network.api.AuthApiService
 import com.unibucfmiifr2026.network.api.UsersApiService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -26,13 +27,23 @@ object RetrofitClient {
         .addInterceptor(apiKeyInterceptor)
         .build()
 
-    val api : UsersApiService by lazy {
+    val usersApi : UsersApiService by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(UsersApiService::class.java)
+
+    }
+
+    val authApi : AuthApiService by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(AuthApiService::class.java)
 
     }
 }
