@@ -28,7 +28,7 @@ class UsersViewModel : ViewModel() {
         _getUsersState.value = UsersState(isLoading = true)
         viewModelScope.launch {
             try {
-                val response = RetrofitClient.api.getUsers(1)
+                val response = RetrofitClient.usersApi.getUsers(1)
                 _getUsersState.value = UsersState(users = response.data)
             } catch (e: Exception) {
                 _getUsersState.value = UsersState(error = e.message)

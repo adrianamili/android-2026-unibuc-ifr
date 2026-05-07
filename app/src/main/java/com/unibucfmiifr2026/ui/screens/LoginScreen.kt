@@ -62,8 +62,8 @@ fun LoginScreen(
     val invalidPasswordError = stringResource(R.string.password_error)
 
     if(BuildConfig.DEBUG){
-        email="test@test.com"
-        password="12345678"
+        email="eve.holt@reqres.in"
+        password="cityslicka"
     }
 
     Column(
